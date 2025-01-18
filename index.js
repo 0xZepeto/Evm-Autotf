@@ -140,7 +140,7 @@ const main = async () => {
       const transaction = {
         to: receiverAddress,
         value: amountToSend,
-        gasLimit: 21000,
+        gasLimit: 25000,
         gasPrice: gasPrice,
         chainId: parseInt(selectedChain.chainId),
       };
@@ -174,7 +174,7 @@ const main = async () => {
         )
       );
 
-      await sleep(15000);
+      await sleep(1);
 
       let receipt;
       try {
