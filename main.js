@@ -29,6 +29,14 @@ async function retry(fn, maxRetries = MAX_RETRIES, delay = RETRY_DELAY) {
   }
 }
 
+// Fungsi untuk mendapatkan gas price acak antara 10 Gwei dan 100 Gwei
+function getRandomGasPrice() {
+  const minGwei = 10;
+  const maxGwei = 100;
+  const randomGwei = Math.random() * (maxGwei - minGwei) + minGwei;
+  return ethers.parseUnits(randomGwei.toFixed(6), 'gwei');
+}
+
 const main = async () => {
   displayHeader();
 
@@ -100,10 +108,17 @@ const main = async () => {
         18
       );
 
+      // Gas price acak
+      const gasPrice = getRandomGasPrice();
+      console.log(colors.blue(`⛽ Gas Price for this transaction: ${ethers.formatUnits(gasPrice, 'gwei')} Gwei`));
+
       let tx;
       try {
+        // Gunakan gasPrice dalam overrides
         tx = await retry(() =>
-          tokenContract.connect(wallet).transfer(receiverAddress, amountToSend)
+          tokenContract.connect(wallet).transfer(receiverAddress, amountToSend, {
+            gasPrice,
+          })
         );
       } catch (error) {
         console.log(
@@ -124,8 +139,7 @@ const main = async () => {
         )
       );
 
-      // Mengurangi delay menjadi 500 ms untuk transaksi berikutnya
-      await sleep(10); 
+      await sleep(10);
 
       let receipt;
       try {
@@ -164,6 +178,3 @@ main().catch((error) => {
   console.error(colors.red('🚨 An unexpected error occurred:'), error);
   process.exit(1);
 });
-
-
-    
