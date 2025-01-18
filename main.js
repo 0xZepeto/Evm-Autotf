@@ -125,7 +125,7 @@ const main = async () => {
       );
 
       // Mengurangi delay menjadi 500 ms untuk transaksi berikutnya
-      await sleep(500); 
+      await sleep(10); 
 
       let receipt;
       try {
