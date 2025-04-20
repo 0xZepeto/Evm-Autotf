@@ -1,9 +1,10 @@
-[
+export const chains = [
   {
-    "name": "Tea-Assam",
-    "rpcUrl": "https://assam-rpc.tea.xyz",
-    "chainId": "93384",
-    "symbol": "$TEA",
-    "explorer": "https://assam.tea.xyz"
+    name: "Tea Sepolia",
+    rpcUrl: "https://tea-sepolia.g.alchemy.com/public",
+    chainId: "10218",
+    symbol: "TEA",
+    explorer: "https://sepolia.tea.xyz",
+    isMainnet: false
   }
-]
+];
